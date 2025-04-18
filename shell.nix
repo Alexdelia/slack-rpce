@@ -52,6 +52,10 @@ in
       ''
         ${pre-commit-check.shellHook}
 
+        if alias 'go' >/dev/null 2>&1; then
+        	unalias go;
+        fi
+
         alias fmt="nix fmt"
       '';
   }
