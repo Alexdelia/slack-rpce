@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"log"
@@ -88,13 +89,19 @@ func main() {
 				return
 			}
 
-			// cmd := exec.Command(bin_path)
-			// if the command fails, print the error
-			// if err := cmd.Run(); err != nil {
-			// ctx.Response().Reply(fmt.Sprintf("sorry <@%s>, <@%s> failed to reboot <#%s>\n\n
-			// }
+			ctx.Response().Reply(fmt.Sprintf("reboot of <#%s> requested by <@%s> is in progress.\nI will ping you when it's done.", channel.ID, requesterId))
 
-			ctx.Response().Reply(fmt.Sprintf("<@%s>, <#%s> has been rebooted with success\n", requesterId, channel.ID))
+			cmd := exec.Command(bin_path)
+			var outb, errb bytes.Buffer
+			cmd.Stdout = &outb
+			cmd.Stderr = &errb
+			if err := cmd.Run(); err != nil {
+				bot.SlackClient().PostMessage(requesterId, slack.MsgOptionText(fmt.Sprintf("error while rebooting <#%s>:\n```%s```\nstdout:```%s```\nstderr:```%s```", channel.ID, err.Error(), outb.String(), errb.String()), false))
+				ctx.Response().Reply(fmt.Sprintf("sorry <@%s>, <#%s> failed to reboot\n\n<@%s>, I've send you the error details in DM\nyou better fix it quick, you %s", requesterId, channel.ID, dev_id, get_random_self_insult()))
+				return
+			}
+
+			ctx.Response().Reply(fmt.Sprintf("<@%s>, <#%s> has been rebooted with success", requesterId, channel.ID))
 		},
 		HideHelp: true,
 	})
