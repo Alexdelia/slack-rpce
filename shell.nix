@@ -56,6 +56,8 @@ in
         	unalias go;
         fi
 
+        alias run="go run ./cmd/slack-rpce/main.go"
+
         alias fmt="nix fmt"
       '';
   }

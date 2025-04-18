@@ -23,3 +23,6 @@ go.work.sum
 
 # git hooks
 .pre-commit-config.yaml
+
+# remote predefined command execution
+/rpce/
