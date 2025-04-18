@@ -85,7 +85,7 @@ func main() {
 
 			bin_path := fmt.Sprintf("./%s/%s.sh", rpce_path, channel.Name)
 			if _, err := os.Stat(bin_path); os.IsNotExist(err) {
-				ctx.Response().Reply(fmt.Sprintf("sorry, <#%s> is not available for reboot\n\n<@%s>, <@%s> requested a reboot for <#%s>\nyou better set it up quick, you %s", channel.ID, dev_id, requesterId, channel.ID, get_random_self_insult()))
+				ctx.Response().Reply(fmt.Sprintf("sorry, <#%s> is not available for reboot\n\n<@%s>, <@%s> requested a reboot for <#%s>\nyou better set it up quickly, you %s", channel.ID, dev_id, requesterId, channel.ID, get_random_self_insult()))
 				return
 			}
 
@@ -97,7 +97,7 @@ func main() {
 			cmd.Stderr = &errb
 			if err := cmd.Run(); err != nil {
 				bot.SlackClient().PostMessage(requesterId, slack.MsgOptionText(fmt.Sprintf("error while rebooting <#%s>:\n```%s```\nstdout:```%s```\nstderr:```%s```", channel.ID, err.Error(), outb.String(), errb.String()), false))
-				ctx.Response().Reply(fmt.Sprintf("sorry <@%s>, <#%s> failed to reboot\n\n<@%s>, I've send you the error details in DM\nyou better fix it quick, you %s", requesterId, channel.ID, dev_id, get_random_self_insult()))
+				ctx.Response().Reply(fmt.Sprintf("sorry <@%s>, <#%s> failed to reboot\n\n<@%s>, I've send you the error details in DM\nyou better fix it quickly, you %s", requesterId, channel.ID, dev_id, get_random_self_insult()))
 				return
 			}
 
