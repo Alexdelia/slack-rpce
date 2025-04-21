@@ -11,7 +11,7 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/slack-go/slack"
-	"github.com/slack-go/slack/socketmode"
+	// "github.com/slack-go/slack/socketmode"
 	"github.com/slack-io/slacker"
 )
 
