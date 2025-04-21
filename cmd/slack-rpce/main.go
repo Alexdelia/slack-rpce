@@ -66,9 +66,11 @@ func main() {
 
 	bot := slacker.NewClient(os.Getenv("SLACK_BOT_TOKEN"), os.Getenv("SLACK_APP_TOKEN"))
 
-	bot.OnConnected(func(event socketmode.Event) {
-		bot.SlackClient().PostMessage(dev_id, slack.MsgOptionText("bot is active", false))
-	})
+	/*
+		bot.OnConnected(func(event socketmode.Event) {
+			bot.SlackClient().PostMessage(dev_id, slack.MsgOptionText("bot is active", false))
+		})
+	*/
 
 	bot.AddCommand(&slacker.CommandDefinition{
 		Command: "ping",
